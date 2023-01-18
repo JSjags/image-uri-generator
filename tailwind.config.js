@@ -9,7 +9,18 @@ module.exports = {
       secondary:
         "var(--poppins-font), system-ui, -apple-system, BlinkMacSystemFont, Segoe UI",
     },
-    extend: {},
+
+    extend: {
+      animation: {
+        width: "width 5s ease",
+      },
+      keyframes: {
+        width: {
+          "0%": { width: "100%" },
+          "100%": { width: 0 },
+        },
+      },
+    },
   },
   plugins: [],
 };
