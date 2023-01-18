@@ -120,11 +120,7 @@ export default function Home() {
         dropAreaRef.current.classList.contains("border-orange-500");
 
         interval = setTimeout(() => setClipboardMessage(), 5000);
-      } else if (
-        !data.ok &&
-        data.status === 413 &&
-        data.statusText === "Body exceeded 4mb limit"
-      ) {
+      } else if (!data.ok && data.status === 413) {
         setUploading(false);
         setImageURIS([]);
         setImageData([]);
