@@ -33,6 +33,7 @@ export default function Home() {
   const [clipboardMessage, setClipboardMessage] = useState();
   const [cloudinaryData, setCloudinaryData] = useState([]);
   const dropAreaRef = useRef();
+  const bodyAreaRef = useRef();
 
   const message = useMemo(() => {
     if (imageData.length == 0 && unwanted == 0) {
@@ -64,8 +65,14 @@ export default function Home() {
     setImageData([]);
 
     // reset border color
-    self.classList.replace("border-green-500", "border-slate-500");
-    self.classList.replace("border-orange-500", "border-slate-500");
+
+    if (
+      self.classList.contains("border-green-500") ||
+      self.classList.contains("border-orange-500")
+    ) {
+      self.classList.replace("border-green-500", "border-slate-500");
+      self.classList.replace("border-orange-500", "border-slate-500");
+    }
 
     const files = e.dataTransfer.files;
     for (const file in files) {
@@ -190,6 +197,7 @@ export default function Home() {
 
   useEffect(() => {
     let dropArea = dropAreaRef.current;
+    let bodyRef = bodyAreaRef.current;
 
     dropArea.addEventListener("dragover", function (e) {
       e.preventDefault();
@@ -205,6 +213,24 @@ export default function Home() {
     dropArea.addEventListener("drop", function (e) {
       const self = this;
       e.preventDefault();
+      handleDrop(e, self);
+    });
+
+    bodyRef.addEventListener("dragover", function (e) {
+      e.preventDefault();
+      this.classList.replace("border-slate-500", "border-slate-500");
+      this.classList.replace("border-2", "border-4");
+    });
+
+    bodyRef.addEventListener("dragleave", function (e) {
+      e.preventDefault();
+      this.classList.replace("border-green-500", "border-slate-500");
+      this.classList.replace("border-4", "border-2");
+    });
+
+    bodyRef.addEventListener("drop", function (e) {
+      e.preventDefault();
+      const self = dropArea;
       handleDrop(e, self);
     });
 
@@ -270,7 +296,7 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={poppins.variable}>
+      <main ref={bodyAreaRef} className={poppins.variable}>
         <header className="bg-gradient-to-r from-violet-200 to-pink-200 sticky top-0 z-10 shadow-lg">
           <Image
             src="/JA_logo.png"
