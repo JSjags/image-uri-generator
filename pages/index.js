@@ -352,7 +352,7 @@ export default function Home() {
                   alt="image"
                   width={window.innerWidth / 4 > 300 ? 200 : 150}
                   height={window.innerWidth / 4 > 300 ? 200 : 150}
-                  className="aspect-auto rounded-lg shadow-2xl"
+                  className="aspect-auto rounded-lg shadow-2xl h-auto"
                 />
               ))
             ) : (
